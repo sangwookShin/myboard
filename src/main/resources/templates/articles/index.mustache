@@ -15,11 +15,12 @@
     </tr>
     </thead>
     <tbody>
-    <!-- 모델에서 보내준 articles를 사용! 데이터가 여러개라면 반복 출력 됨! https://taegon.kim/archives/4910 -->
     {{#articles}}
         <tr>
-            <td>{{id}}</td> <!-- id 출력 -->
-            <td>{{title}}</td> <!-- title 출력 -->
+            <td>{{id}}</td>
+            <td>
+                <a href="/articles/{{id}}">{{title}}</a> <!-- 링크 추가 -->
+            </td>
         </tr>
     {{/articles}}
     </tbody>
