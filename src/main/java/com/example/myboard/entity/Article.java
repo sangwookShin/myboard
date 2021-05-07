@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @ToString
@@ -30,6 +31,9 @@ public class Article extends BaseTime {
         this.title = title;
         this.content = content;
     }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "article")
+    private List<Comment> comments;
 
     public void rewrite(String title, String content) {
         this.title = title;
