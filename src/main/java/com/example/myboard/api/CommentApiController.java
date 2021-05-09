@@ -5,35 +5,37 @@ import com.example.myboard.entity.Article;
 import com.example.myboard.entity.Comment;
 import com.example.myboard.repository.ArticleRepository;
 import com.example.myboard.repository.CommentRepository;
+import com.example.myboard.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequiredArgsConstructor
 @RestController
 public class CommentApiController {
 
-    private final CommentRepository commentRepository;
-    private final ArticleRepository articleRepository;
+    private final CommentService commentService;
 
     @PostMapping("/api/comments/{articleId}")
     public Long create(@PathVariable Long articleId, @RequestBody CommentForm form) {
 
-        log.info("form: " + form.toString());
-        Comment comment = form.toEntity();
-        log.info("comment: " + comment.toString());
-
-        Article article = articleRepository.findById(articleId)
-                .orElseThrow(()-> new IllegalArgumentException("댓글을 작성할 article이 없습니다."));
-
-        comment.stickTo(article);
-        log.info("written: " + comment.toString());
-        Comment saved = commentRepository.save(comment);
+        Comment saved = commentService.create(articleId, form);
         log.info("saved: " + saved.toString());
+
         return saved.getId();
+    }
+
+    @PutMapping("/api/comments/{id}")
+    public Long update(@PathVariable Long id,
+                       @RequestBody CommentForm form) {
+        // 서비스 객체가 댓글 수정
+        Comment updated = commentService.update(id, form);
+        return updated.getId();
+    }
+
+    @DeleteMapping("/api/comments/{id}")
+    public Long destroy(@PathVariable Long id) {
+        return commentService.destroy(id);
     }
 }

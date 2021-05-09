@@ -1,16 +1,13 @@
 package com.example.myboard.entity;
 
-import com.example.myboard.dto.ArticleForm;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Getter
-@ToString
 @NoArgsConstructor
 @Entity
 public class Article extends BaseTime {
@@ -38,5 +35,15 @@ public class Article extends BaseTime {
     public void rewrite(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    @Override // toString() 메소드를 직접 오버라이딩(재정의) 함!
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", comments=" + (comments == null ? null : comments.size()) +
+                '}';
     }
 }

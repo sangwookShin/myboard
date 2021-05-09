@@ -30,4 +30,7 @@ public class Comment extends BaseTime {
         this.article = article;
     }
 
+    public void rewrite(String content) {
+        this.content = content;
+    }
 }

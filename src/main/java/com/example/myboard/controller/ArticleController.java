@@ -40,7 +40,10 @@ public class ArticleController {
     public String show(@PathVariable Long id, Model model) {
 
         Article article = articleRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("해당 article이 없습니다."));
+        log.info(article.toString());
+
         model.addAttribute("article", article);
+        model.addAttribute("comments", article.getComments());
         return "articles/show";
     }
 
