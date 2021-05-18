@@ -12,6 +12,19 @@ var comment = {
       _this.create();
     });
 
+    // 버튼 토글 기능 추가
+    const editBtns = document.querySelectorAll('.comment-edit-btn');
+
+    editBtns.forEach(function(item) {
+      item.addEventListener('click', function() {
+        if (item.innerHTML == '수정') {
+          item.innerHTML = '취소';
+        } else {
+          item.innerHTML = '수정';
+        }
+      });
+    });
+
     // 수정 버튼 변수화
     const updateBtns = document.querySelectorAll('.comment-update-btn');
 
@@ -23,14 +36,14 @@ var comment = {
       });
     });
 
-     // 삭제 버튼 클릭 시!
-     const destroyBtns = document.querySelectorAll('.comment-destroy-btn');
-     destroyBtns.forEach(function(item) {
-        item.addEventListener('click', function() {
-            var commentId = this.getAttribute('value'); // 해당 a태그의 value 값(댓글 id)을 저장
-            _this.destroy(commentId);
-        });
-     });
+    // 삭제 버튼 클릭 시!
+    const destroyBtns = document.querySelectorAll('.comment-destroy-btn');
+    destroyBtns.forEach(function(item) {
+      item.addEventListener('click', function() {
+        var commentId = this.getAttribute('value'); // 해당 a태그의 value 값(댓글 id)을 저장
+        _this.destroy(commentId);
+      });
+    });
   },
 
   // 댓글 등록
@@ -40,9 +53,11 @@ var comment = {
       author: document.querySelector('#comment-author').value,
       content: document.querySelector('#comment-content').value,
     };
+
     // url에서 article의 id를 추출!
     var split = location.pathname.split('/');
     var articleId = split[split.length - 1];
+
     // Ajax 통신
     // - https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     // - https://t.ly/Vrrz
@@ -92,7 +107,7 @@ var comment = {
     });
   },
 
- // 댓글 삭제
+  // 댓글 삭제
   destroy: function(commentId) {
     // 요청을 보냄
     fetch('/api/comments/' + commentId, {
@@ -108,5 +123,6 @@ var comment = {
     });
   }
 };
+
 // 객체 초기화!
 comment.init();
