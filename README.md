@@ -1,7 +1,7 @@
 # myboard
 
 1. 개요
- Springboot를 이용한 게시판 개인프로젝트
++ Springboot를 이용한 게시판 개인프로젝트
 
 
 2. 사용기술
