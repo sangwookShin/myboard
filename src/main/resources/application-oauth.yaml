@@ -1,0 +1,6 @@
+security:
+  oauth2:
+    client.registraion.google:
+      client-id: 303360424136-p92o8ih5h57kqj3p9961pdmi1a40lp74.apps.googleusercontent.com
+      client-secret: socf6fe1SFUNJTLZtYsP44xG
+      scope: email, profile
